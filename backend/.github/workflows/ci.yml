@@ -1,0 +1,43 @@
+# This is a GitHub Actions workflow file.
+# It defines a set of jobs that will be run automatically on certain events,
+# like pushing code to the repository.
+
+name: Backend CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  # This workflow contains a single job called "build-and-test"
+  build-and-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Sets up Docker Buildx for more advanced build features
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # The main step: build the Docker image for our FastAPI application.
+      # This step implicitly tests our setup because if the Dockerfile fails,
+      # the workflow will fail. For a more advanced setup, we would add a
+      # dedicated step to run 'pytest' inside the container.
+      - name: Build Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend # The context is our backend directory
+          push: false # We are only building, not pushing to a registry yet
+          load: true # Load the image into the local Docker daemon
+
+      # In a real-world scenario, you would add a step here to run unit tests:
+      # - name: Run tests
+      #   run: docker-compose run web pytest

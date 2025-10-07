@@ -1,0 +1,44 @@
+# This is a GitHub Actions workflow file for the iOS application.
+# It automatically runs tests whenever code is pushed to the 'ios/' directory.
+
+name: iOS CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ios/**' # Only run this workflow if changes are in the 'ios' directory
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'ios/**'
+
+jobs:
+  # This workflow contains a single job called "build-and-test"
+  build-and-test:
+    # The type of runner that the job will run on. macOS is required for Xcode.
+    runs-on: macos-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # 1. Checks-out your repository under $GITHUB_WORKSPACE
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Selects the version of Xcode to use for the build
+      - name: Select Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '14.2' # Specify a recent, stable version of Xcode
+
+      # 3. Runs the unit tests for the iOS application
+      # This command builds the project and runs the test suite defined in the .xcodeproj
+      - name: Run Swift Unit Tests
+        run: |
+          xcodebuild test \
+            -project ios/AI_Travel_Co_Pilot.xcodeproj \
+            -scheme AI_Travel_Co_Pilot \
+            -destination 'platform=iOS Simulator,name=iPhone 14,OS=16.2' \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO

@@ -1,0 +1,78 @@
+# This is a GitHub Actions workflow for Continuous Deployment of the backend app.
+# It automatically builds and deploys the app to Google Cloud Run on pushes to the main branch.
+
+name: Backend CD (Deploy to Cloud Run)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/**'
+
+# Environment variables available to all jobs and steps in this workflow
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: us-central1
+  SERVICE_NAME: ai-travel-copilot-backend
+  REPO_NAME: ai-travel-copilot-repo
+
+jobs:
+  # First, run the existing CI job to ensure all tests pass.
+  test:
+    uses: ./.github/workflows/ci.yml
+
+  # If the test job succeeds, proceed to the deploy job.
+  deploy:
+    needs: test # This job depends on the successful completion of the 'test' job
+    runs-on: ubuntu-latest
+    
+    # Add permissions to the job to allow it to authenticate with Google Cloud
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      # 1. Checks-out your repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Authenticate to Google Cloud
+      # This uses Workload Identity Federation to securely authenticate without service account keys.
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      # 3. Setup gcloud CLI
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+
+      # 4. Configure Docker to use the gcloud credential helper
+      - name: Configure Docker
+        run: gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev
+
+      # 5. Build and push the Docker image to Google Artifact Registry
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+
+      # 6. Deploy the new image to Cloud Run
+      - name: Deploy to Cloud Run
+        id: deploy
+        uses: google-github-actions/deploy-cloudrun@v1
+        with:
+          service: ${{ env.SERVICE_NAME }}
+          region: ${{ env.REGION }}
+          # Use the image we just pushed
+          image: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO_NAME }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
+          # Allow unauthenticated access to the service
+          flags: --allow-unauthenticated
+
+      # 7. Output the URL of the deployed service
+      - name: Show Output
+        run: echo "Deployed to: ${{ steps.deploy.outputs.url }}"

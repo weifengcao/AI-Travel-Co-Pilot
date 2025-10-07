@@ -1,0 +1,24 @@
+#Xcode
+#Swift-specific & SPM
+.build/
+.swiftpm/
+Packages/
+
+#Carthage
+Carthage/Build/
+Carthage/Checkouts/
+
+#CocoaPods
+Pods/
+
+#Xcode Project files
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+DerivedData/
+
+#User-specific settings
+xcuserdata/
+
+#Secrets - It's crucial to never commit API keys or other secrets.
+#We'll imagine a file where these might be stored during development.
+**/Secrets.plist

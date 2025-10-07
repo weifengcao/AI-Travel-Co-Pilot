@@ -1,0 +1,69 @@
+# This is a GitHub Actions workflow file for Continuous Deployment of the iOS app.
+# It automatically builds and uploads the app to TestFlight on pushes to the main branch.
+
+name: iOS CD (Deploy to TestFlight)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ios/**'
+
+jobs:
+  # First, run the existing CI job to ensure all tests pass.
+  test:
+    uses: ./.github/workflows/ci-ios.yml
+
+  # If the test job succeeds, proceed to the deploy job.
+  deploy:
+    needs: test # This job depends on the successful completion of the 'test' job.
+    runs-on: macos-latest
+
+    steps:
+      # 1. Checks-out your repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          # Fetch all history for all branches and tags
+          fetch-depth: 0
+
+      # 2. Setup Apple certificates and provisioning profiles
+      # This step uses secrets stored in your GitHub repository settings to handle code signing.
+      - name: Install Apple Certificate and Provisioning Profile
+        uses: apple-actions/import-codesign-certs@v2
+        with:
+          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          provisioning-profile-base64: ${{ secrets.PROVISIONING_PROFILE_BASE64 }}
+          keychain-password: ${{ secrets.KEYCHAIN_PASSWORD }}
+      
+      # 3. Generate Release Notes from the latest commit
+      # This step extracts the commit message to use as "What to Test" notes.
+      - name: Generate Release Notes
+        id: release_notes
+        run: echo "whats_new=$(git log -1 --pretty=%s)" >> $GITHUB_OUTPUT
+
+      # 4. Build and Archive the iOS App
+      # This creates the .ipa file needed for TestFlight.
+      - name: Build and Archive
+        run: |
+          xcodebuild archive \
+            -project ios/AI_Travel_Co_Pilot.xcodeproj \
+            -scheme AI_Travel_Co_Pilot \
+            -archivePath ./build/AI_Travel_Co_Pilot.xcarchive \
+            -allowProvisioningUpdates
+          xcodebuild -exportArchive \
+            -archivePath ./build/AI_Travel_Co_Pilot.xcarchive \
+            -exportPath ./build \
+            -exportOptionsPlist ios/ExportOptions.plist
+
+      # 5. Upload the build to App Store Connect (TestFlight)
+      - name: Upload to TestFlight
+        uses: apple-actions/upload-testflight-build@v1
+        with:
+          app-path: "./build/AI_Travel_Co_Pilot.ipa"
+          issuer-id: ${{ secrets.APP_STORE_ISSUER_ID }}
+          api-key-id: ${{ secrets.APP_STORE_API_KEY_ID }}
+          api-private-key: ${{ secrets.APP_STORE_API_PRIVATE_KEY }}
+          # Use the release notes generated in the previous step
+          whats-new: ${{ steps.release_notes.outputs.whats_new }}
