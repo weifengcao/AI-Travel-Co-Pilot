@@ -1,0 +1,37 @@
+# This YAML file is the script that defines our Xcode project.
+# XcodeGen will read this file to generate the .xcodeproj.
+name: Zenese
+
+options:
+  bundleIdPrefix: com.weifengcao # TODO: Replace with your actual bundle ID prefix
+
+targets:
+  # The main application target
+  Zenese:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0" # Specify the minimum iOS version
+    info:
+      path: App/Info.plist # Path to the Info.plist file
+    sources:
+      - App/
+      - Views/
+      - ViewModels/
+      - Models/
+      - Services/
+    resources:
+      - App/Assets.xcassets
+    settings:
+      base:
+        PRODUCT_NAME: Zenese
+        TARGETED_DEVICE_FAMILY: "1" # 1 for iPhone
+
+  # The unit test target
+  ZeneseTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - Tests/
+    dependencies:
+      - target: Zenese # This makes the app's code available to the tests

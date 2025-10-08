@@ -13,7 +13,8 @@ class ChatViewModel: ObservableObject {
     @Published var isTyping = false
     @Published var currentInput: String = ""
     
-    private let apiService = APIService()
+    // Use the protocol for testability
+    private var apiService: APIServiceProtocol
     private var cancellables = Set<AnyCancellable>()
     
     // State to manage the conversation flow for tracking a flight.
@@ -21,16 +22,18 @@ class ChatViewModel: ObservableObject {
     private var lastFoundFlightDetails: FlightDetails?
     private var lastParsedQuery: ParsedFlightQuery?
     
-    init() {
+    // Allow injecting a different service for testing
+    init(apiService: APIServiceProtocol = APIService()) {
+        self.apiService = apiService
         // Initial welcome message from the AI.
-        messages.append(ChatMessage(text: "Hi! I'm your AI Travel Co-Pilot. Where would you like to go? (e.g., SFO to LAX Nov 17 to Nov 20)", sender: .ai))
+        messages.append(ChatMessage(text: "Hi! I'm your AI Travel Co-Pilot. Where would you like to go? (e.g., SFO to LAX Nov 17 to Nov 20)", isFromUser: false))
     }
     
     /// Main function to handle sending a message from the user.
     func sendMessage() {
         guard !currentInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
-        let userMessage = ChatMessage(text: currentInput, sender: .user)
+        let userMessage = ChatMessage(text: currentInput, isFromUser: true)
         messages.append(userMessage)
         
         // Check if the user is confirming a previously found flight.
@@ -53,7 +56,9 @@ class ChatViewModel: ObservableObject {
         if isAffirmative, let details = lastFoundFlightDetails, let query = lastParsedQuery {
             // 1. Create the TrackedTrip object.
             let initialPricePoint = PriceDataPoint(date: Date(), price: details.price)
+            // FIXED: Replaced placeholder with UUID()
             let newTrip = TrackedTrip(
+                id: UUID(),
                 origin: query.origin,
                 destination: query.destination,
                 startDate: query.startDate,
@@ -65,11 +70,11 @@ class ChatViewModel: ObservableObject {
             PersistenceService.shared.add(trip: newTrip)
             
             // 3. Confirm with the user.
-            messages.append(ChatMessage(text: "Great! I've saved this trip to your dashboard and will monitor the price for you.", sender: .ai))
+            messages.append(ChatMessage(text: "Great! I've saved this trip to your dashboard and will monitor the price for you.", isFromUser: false))
             
         } else {
             // User declined or gave an unclear answer.
-            messages.append(ChatMessage(text: "No problem. Let me know if you have another trip in mind!", sender: .ai))
+            messages.append(ChatMessage(text: "No problem. Let me know if you have another trip in mind!", isFromUser: false))
         }
         
         // 4. Reset the state.
@@ -79,12 +84,12 @@ class ChatViewModel: ObservableObject {
     }
     
     /// Parses the user's message and fetches flight data from the backend.
-    private func fetchFlightData(for message: String) {
+    func fetchFlightData(for message: String) {
         isTyping = true
         
-        // Parse the user's message for flight details.
+        // FIXED: Corrected function name from xparse to parse.
         guard let parsedQuery = parse(message: message) else {
-            messages.append(ChatMessage(text: "I'm sorry, I didn't understand the destination, origin, or dates. Could you try a format like 'SFO to LAX Nov 17 to Nov 20'?", sender: .ai))
+            messages.append(ChatMessage(text: "I'm sorry, I didn't understand the destination, origin, or dates. Could you try a format like 'SFO to LAX Nov 17 to Nov 20'?", isFromUser: false))
             isTyping = false
             return
         }
@@ -92,8 +97,14 @@ class ChatViewModel: ObservableObject {
         // Store the query for later, in case the user wants to track it.
         self.lastParsedQuery = parsedQuery
         
+        // FIXED: Use a specific date formatter to match backend expectations.
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let startDateString = dateFormatter.string(from: parsedQuery.startDate)
+        let endDateString = dateFormatter.string(from: parsedQuery.endDate)
+        
         // Create the request object for our API.
-        let request = FlightSearchRequest(origin: parsedQuery.origin, destination: parsedQuery.destination)
+        let request = FlightSearchRequest(origin: parsedQuery.origin, destination: parsedQuery.destination, startDate: startDateString, endDate: endDateString)
         
         // Make the API call.
         apiService.fetchFlightDetails(request: request)
@@ -101,7 +112,7 @@ class ChatViewModel: ObservableObject {
             .sink(receiveCompletion: { [weak self] completion in
                 self?.isTyping = false
                 if case .failure(let error) = completion {
-                    self?.messages.append(ChatMessage(text: "Sorry, I couldn't fetch flight details right now. Error: \(error.localizedDescription)", sender: .ai))
+                    self?.messages.append(ChatMessage(text: "Sorry, I couldn't fetch flight details right now. Error: \(error.localizedDescription)", isFromUser: false))
                 }
             }, receiveValue: { [weak self] flightDetails in
                 // Store flight details for potential tracking.
@@ -109,7 +120,7 @@ class ChatViewModel: ObservableObject {
                 
                 // Format the AI's response.
                 let responseText = "I found a flight for $ \(flightDetails.price). I can track the price for you and let you know if it drops. Should I add this to your dashboard?"
-                self?.messages.append(ChatMessage(text: responseText, sender: .ai))
+                self?.messages.append(ChatMessage(text: responseText, isFromUser: false))
                 
                 // Set the flag to indicate we're waiting for a confirmation.
                 self?.isAwaitingTrackingConfirmation = true
@@ -120,9 +131,8 @@ class ChatViewModel: ObservableObject {
     // MARK: - On-Device NLP Parsing
     
     /// Parses a user's text to extract flight query details using on-device frameworks.
-    private func parse(message: String) -> ParsedFlightQuery? {
+    func parse(message: String) -> ParsedFlightQuery? {
         // ... NOTE: This uses Apple's on-device Natural Language frameworks.
-        // For long-term, we can upgrade this to a more powerful LLM like Gemini.
         
         var origin: String?
         var destination: String?
@@ -136,7 +146,6 @@ class ChatViewModel: ObservableObject {
         tagger.enumerateTags(in: message.startIndex..<message.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
             if tag == .placeName {
                 let airportCode = String(message[tokenRange]).uppercased()
-                // A simple way to distinguish origin/destination based on order.
                 if origin == nil {
                     origin = airportCode
                 } else if destination == nil {
@@ -165,7 +174,6 @@ class ChatViewModel: ObservableObject {
             return nil
         }
         
-        // Sort dates to ensure startDate is before endDate.
         let sortedDates = dates.sorted()
         
         return ParsedFlightQuery(origin: originUnwrapped, destination: destinationUnwrapped, startDate: sortedDates[0], endDate: sortedDates[1])

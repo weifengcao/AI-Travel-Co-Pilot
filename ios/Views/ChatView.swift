@@ -26,7 +26,7 @@ struct ChatView: View {
                             MessageBubble(message: message)
                         }
                         
-                        if viewModel.isLoading {
+                        if viewModel.isTyping {
                             HStack {
                                 ProgressView()
                                     .padding(.leading)
@@ -51,11 +51,11 @@ struct ChatView: View {
                 TextField("Ask about a flight...", text: $viewModel.currentInput)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                Button(action: viewModel.sendMessage) {
+                Button(action: { viewModel.sendMessage() }) {
                     Image(systemName: "arrow.up.circle.fill")
                         .font(.title)
                 }
-                .disabled(viewModel.currentInput.isEmpty || viewModel.isLoading)
+                .disabled(viewModel.currentInput.isEmpty || viewModel.isTyping)
             }
             .padding()
             .background(Color(.systemGray6))
@@ -91,3 +91,4 @@ struct ChatView_Previews: PreviewProvider {
         ChatView()
     }
 }
+

@@ -7,31 +7,23 @@ import SwiftUI
 struct DashboardView: View {
     
     // Create a state object for our ViewModel.
-    // The @StateObject property wrapper ensures the ViewModel's lifecycle is tied to the view.
     @StateObject private var viewModel = DashboardViewModel()
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                // Header
-                headerView
-                
-                // Content
-                if viewModel.trackedTrips.isEmpty {
-                    emptyStateView
-                } else {
-                    tripListView
-                }
-            }
-            .navigationBarHidden(true)
-            .background(Color(.systemGroupedBackground))
-            .edgesIgnoringSafeArea(.bottom)
-            .onAppear {
-                // When the view appears, tell the ViewModel to load trips.
-                // This ensures the list is up-to-date if a trip was added from the chat view.
-                viewModel.loadTrips()
+        // NOTE: The NavigationView was removed as it's already provided by MainView's TabView.
+        VStack(spacing: 0) {
+            // Header
+            headerView
+            
+            // Content
+            if viewModel.trackedTrips.isEmpty {
+                emptyStateView
+            } else {
+                tripListView
             }
         }
+        .background(Color(.systemGroupedBackground))
+        .edgesIgnoringSafeArea(.bottom)
     }
     
     // MARK: - Subviews
@@ -52,10 +44,14 @@ struct DashboardView: View {
     
     private var tripListView: some View {
         List {
+            // FIXED: Correctly initialize TripCardView with the trip object.
             ForEach(viewModel.trackedTrips) { trip in
                 TripCardView(trip: trip)
+                    .listRowSeparator(.hidden)
+                    .listRowBackground(Color.clear)
             }
-            .onDelete(perform: deleteTrip)
+            // FIXED: Correctly call the ViewModel's delete function.
+            .onDelete(perform: viewModel.deleteTrips)
         }
         .listStyle(PlainListStyle())
     }
@@ -78,16 +74,6 @@ struct DashboardView: View {
         }
         .frame(maxWidth: .infinity)
     }
-    
-    // MARK: - Functions
-    
-    private func deleteTrip(at offsets: IndexSet) {
-        // Get the specific trip from the offsets and call the ViewModel's delete function.
-        if let index = offsets.first {
-            let tripToDelete = viewModel.trackedTrips[index]
-            viewModel.delete(trip: tripToDelete)
-        }
-    }
 }
 
 // MARK: - Preview
@@ -97,3 +83,4 @@ struct DashboardView_Previews: PreviewProvider {
         DashboardView()
     }
 }
+

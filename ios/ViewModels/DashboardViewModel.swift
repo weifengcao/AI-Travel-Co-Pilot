@@ -51,7 +51,9 @@ class DashboardViewModel: ObservableObject {
         
         for (index, trip) in tripsToRefresh.enumerated() {
             // Create a request from the trip's data.
-            let request = FlightSearchRequest(origin: trip.origin, destination: trip.destination)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let request = FlightSearchRequest(origin: trip.origin, destination: trip.destination, startDate: dateFormatter.string(from: trip.startDate), endDate: dateFormatter.string(from: trip.endDate))
             
             // Make the API call for the current trip.
             apiService.fetchFlightDetails(request: request)

@@ -56,7 +56,8 @@ struct MainView: View {
 }
 
 struct MainView_Previews: PreviewProvider {
-    static var previews: a-p-p-l-e
+    // FIXED: Corrected the syntax error in the preview provider.
+    static var previews: some View {
         MainView()
     }
 }

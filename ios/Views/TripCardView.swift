@@ -5,27 +5,19 @@
 import SwiftUI
 
 struct TripCardView: View {
-    // Mock data for a single trip. In a real app, this would be a 'TrackedTrip' model object.
-    let origin: String
-    let destination: String
-    let dates: String
-    let currentPrice: Int
-    let priceTrend: PriceTrend // Enum to represent price changes
-
-    enum PriceTrend {
-        case up, down, stable
-    }
+    // FIXED: The view now takes a single TrackedTrip model object.
+    let trip: TrackedTrip
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             // Header: SFO -> LAX
             HStack {
-                Text(origin)
+                Text(trip.origin)
                     .font(.title2)
                     .fontWeight(.bold)
                 Image(systemName: "arrow.right")
                     .font(.headline)
-                Text(destination)
+                Text(trip.destination)
                     .font(.title2)
                     .fontWeight(.bold)
                 Spacer()
@@ -33,7 +25,7 @@ struct TripCardView: View {
             .foregroundColor(.white)
 
             // Dates
-            Text(dates)
+            Text(trip.formattedDates)
                 .font(.subheadline)
                 .foregroundColor(.white.opacity(0.8))
 
@@ -44,12 +36,18 @@ struct TripCardView: View {
                 Text("Current Price")
                     .font(.headline)
                 Spacer()
-                HStack(spacing: 4) {
-                    trendIcon
-                    Text("$\(currentPrice)")
+                if let currentPrice = trip.currentPrice {
+                    HStack(spacing: 4) {
+                        trendIcon
+                        Text(String(format: "$%.2f", currentPrice))
+                            .font(.title2)
+                    }
+                    .fontWeight(.semibold)
+                } else {
+                    Text("N/A")
                         .font(.title2)
+                        .fontWeight(.semibold)
                 }
-                .fontWeight(.semibold)
             }
             .foregroundColor(.white)
         }
@@ -68,7 +66,7 @@ struct TripCardView: View {
     // Helper view to determine the trend icon and color
     @ViewBuilder
     private var trendIcon: some View {
-        switch priceTrend {
+        switch trip.priceTrend {
         case .up:
             Image(systemName: "arrow.up.right")
                 .foregroundColor(.red.opacity(0.8))
@@ -86,11 +84,14 @@ struct TripCardView: View {
 struct TripCardView_Previews: PreviewProvider {
     static var previews: some View {
         TripCardView(
-            origin: "SFO",
-            destination: "LAX",
-            dates: "Nov 17 - Nov 20, 2025",
-            currentPrice: 189,
-            priceTrend: .down
+            trip: TrackedTrip(
+                id: UUID(),
+                origin: "SFO",
+                destination: "LAX",
+                startDate: Date(),
+                endDate: Date().addingTimeInterval(86400 * 3),
+                priceHistory: [PriceDataPoint(date: Date(), price: 189.0)]
+            )
         )
         .padding()
     }

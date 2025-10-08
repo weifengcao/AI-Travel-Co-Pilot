@@ -1,0 +1,515 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 63;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0002F59E27B2E731E2C39EBB /* ChatViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB9C388A91F674885026882 /* ChatViewModelTests.swift */; };
+		0E8FC815D764524DCC25CDD7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67163744014625A12B42A4A7 /* ChatView.swift */; };
+		1858FBBC4A412018364B9D9E /* FlightModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3227DBD1E573E19657CD92D2 /* FlightModels.swift */; };
+		18D8E0C63A745CD8ADD41120 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DFDA5780D2FA4258493A675 /* Assets.xcassets */; };
+		208B9001B367B3E4224C01C9 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7C710C3962835DEE870AC8 /* DashboardView.swift */; };
+		26600334154D3B38DB2E1FEB /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9667D56000D32B012CDB37A7 /* ChatViewModel.swift */; };
+		3E646A992E95D3F0003D06C8 /* APIServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646A982E95D3F0003D06C8 /* APIServiceProtocol.swift */; };
+		5625C4BFADEC7F5CE15B2A46 /* AI_Travel_Co_PilotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6939FC4076E454E085E5F45B /* AI_Travel_Co_PilotApp.swift */; };
+		5BF60F34FCC2A4E2C85C09B7 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567C7D3B81FAF7E348373129 /* AuthenticationService.swift */; };
+		65D8211B39194DC7364533A4 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 437DF2E48F34D197B4E70D93 /* DashboardViewModel.swift */; };
+		68805FB6ED1C21B6813F5A96 /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A4F5EBBC8DA3BACE5DC9484 /* PersistenceService.swift */; };
+		7E97757F3F661030A88A765E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A4EEC1C987F1A2A2361582 /* MainView.swift */; };
+		90A82B299B5B47EA89AE3824 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26D77468010EC95F4361BA9D /* OnboardingView.swift */; };
+		9629FEB8207ABAB6E3B92638 /* TripCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 921ED83C37B3842A940D9E8D /* TripCardView.swift */; };
+		A0EDBCBA2358477FCAA7B416 /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB873AA27DB9D88DE78E7C7 /* MockAPIService.swift */; };
+		EA2B8F1255CF93029C4FFF42 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE9C60FACF906E9AF0333B43 /* ChatMessage.swift */; };
+		EB4CD94D0AE461652ACBA8F9 /* TrackedTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4341DCEFEC534B8235C3DCC4 /* TrackedTrip.swift */; };
+		F4177EC3CD3E1316643842E1 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3ECBF410587D52281180FB0 /* APIService.swift */; };
+		FC5CC696637FCD8ED3BB1BED /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DD1CD28C5DEE984789768BE /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		66E8601BE9479F0A7FB67BE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E52CCA1CBDA0B1F4D5218E8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 16A9B1EF6FB3E38D590D85FA;
+			remoteInfo = Zenese;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		06A4EEC1C987F1A2A2361582 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		0DFDA5780D2FA4258493A675 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		268BC58E946115572CAC5024 /* ZeneseTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ZeneseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		26D77468010EC95F4361BA9D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		3227DBD1E573E19657CD92D2 /* FlightModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightModels.swift; sourceTree = "<group>"; };
+		3E646A982E95D3F0003D06C8 /* APIServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceProtocol.swift; sourceTree = "<group>"; };
+		4341DCEFEC534B8235C3DCC4 /* TrackedTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackedTrip.swift; sourceTree = "<group>"; };
+		437DF2E48F34D197B4E70D93 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		45BD13C0072F5C3978780444 /* Zenese.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Zenese.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A7C710C3962835DEE870AC8 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		567C7D3B81FAF7E348373129 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		67163744014625A12B42A4A7 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		6939FC4076E454E085E5F45B /* AI_Travel_Co_PilotApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI_Travel_Co_PilotApp.swift; sourceTree = "<group>"; };
+		7DD1CD28C5DEE984789768BE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		8A4F5EBBC8DA3BACE5DC9484 /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
+		921ED83C37B3842A940D9E8D /* TripCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripCardView.swift; sourceTree = "<group>"; };
+		9667D56000D32B012CDB37A7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		C3ECBF410587D52281180FB0 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		DBC546E940923492591555AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		EAB9C388A91F674885026882 /* ChatViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModelTests.swift; sourceTree = "<group>"; };
+		EDB873AA27DB9D88DE78E7C7 /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
+		FE9C60FACF906E9AF0333B43 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		00909910EB22347DE2C3C0BC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6939FC4076E454E085E5F45B /* AI_Travel_Co_PilotApp.swift */,
+				0DFDA5780D2FA4258493A675 /* Assets.xcassets */,
+				DBC546E940923492591555AE /* Info.plist */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		05A69B1C5099EEB4FEDB7A81 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				9667D56000D32B012CDB37A7 /* ChatViewModel.swift */,
+				437DF2E48F34D197B4E70D93 /* DashboardViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		28876406393AFB116FBC1329 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FE9C60FACF906E9AF0333B43 /* ChatMessage.swift */,
+				3227DBD1E573E19657CD92D2 /* FlightModels.swift */,
+				4341DCEFEC534B8235C3DCC4 /* TrackedTrip.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4CCE016E34F48945EBCF6486 = {
+			isa = PBXGroup;
+			children = (
+				00909910EB22347DE2C3C0BC /* App */,
+				28876406393AFB116FBC1329 /* Models */,
+				A438CC4DC45601408C6E6741 /* Services */,
+				6106F176A0F492B8FAFF91EC /* Tests */,
+				05A69B1C5099EEB4FEDB7A81 /* ViewModels */,
+				EFF4ADCBE31D20C23B58CFD5 /* Views */,
+				A3586BBBE2FA2F703A229044 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6106F176A0F492B8FAFF91EC /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				EAB9C388A91F674885026882 /* ChatViewModelTests.swift */,
+				EA23126DC8174F99FA8A3A01 /* Mocks */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		A3586BBBE2FA2F703A229044 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45BD13C0072F5C3978780444 /* Zenese.app */,
+				268BC58E946115572CAC5024 /* ZeneseTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A438CC4DC45601408C6E6741 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C3ECBF410587D52281180FB0 /* APIService.swift */,
+				567C7D3B81FAF7E348373129 /* AuthenticationService.swift */,
+				8A4F5EBBC8DA3BACE5DC9484 /* PersistenceService.swift */,
+				3E646A982E95D3F0003D06C8 /* APIServiceProtocol.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		EA23126DC8174F99FA8A3A01 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				EDB873AA27DB9D88DE78E7C7 /* MockAPIService.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		EFF4ADCBE31D20C23B58CFD5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				67163744014625A12B42A4A7 /* ChatView.swift */,
+				4A7C710C3962835DEE870AC8 /* DashboardView.swift */,
+				06A4EEC1C987F1A2A2361582 /* MainView.swift */,
+				26D77468010EC95F4361BA9D /* OnboardingView.swift */,
+				7DD1CD28C5DEE984789768BE /* SettingsView.swift */,
+				921ED83C37B3842A940D9E8D /* TripCardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		16A9B1EF6FB3E38D590D85FA /* Zenese */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 95D250C27532387BC97E84DA /* Build configuration list for PBXNativeTarget "Zenese" */;
+			buildPhases = (
+				CC7EAB6C2B93EA68E91D4A6E /* Sources */,
+				409BDB26425073DA84E9F026 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Zenese;
+			packageProductDependencies = (
+			);
+			productName = Zenese;
+			productReference = 45BD13C0072F5C3978780444 /* Zenese.app */;
+			productType = "com.apple.product-type.application";
+		};
+		33D99954583E4643CFA87BE0 /* ZeneseTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BA8177AEBE7A04A12EC5644C /* Build configuration list for PBXNativeTarget "ZeneseTests" */;
+			buildPhases = (
+				D0BE79BCEB59B501CFF0FD0D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				543A6FB0A3B602B5B694ABBE /* PBXTargetDependency */,
+			);
+			name = ZeneseTests;
+			packageProductDependencies = (
+			);
+			productName = ZeneseTests;
+			productReference = 268BC58E946115572CAC5024 /* ZeneseTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E52CCA1CBDA0B1F4D5218E8A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+			};
+			buildConfigurationList = EE3E6AB3243CB7D5C7062E23 /* Build configuration list for PBXProject "Zenese" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 4CCE016E34F48945EBCF6486;
+			minimizedProjectReferenceProxies = 1;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				16A9B1EF6FB3E38D590D85FA /* Zenese */,
+				33D99954583E4643CFA87BE0 /* ZeneseTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		409BDB26425073DA84E9F026 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18D8E0C63A745CD8ADD41120 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CC7EAB6C2B93EA68E91D4A6E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3E646A992E95D3F0003D06C8 /* APIServiceProtocol.swift in Sources */,
+				5625C4BFADEC7F5CE15B2A46 /* AI_Travel_Co_PilotApp.swift in Sources */,
+				F4177EC3CD3E1316643842E1 /* APIService.swift in Sources */,
+				5BF60F34FCC2A4E2C85C09B7 /* AuthenticationService.swift in Sources */,
+				EA2B8F1255CF93029C4FFF42 /* ChatMessage.swift in Sources */,
+				0E8FC815D764524DCC25CDD7 /* ChatView.swift in Sources */,
+				26600334154D3B38DB2E1FEB /* ChatViewModel.swift in Sources */,
+				208B9001B367B3E4224C01C9 /* DashboardView.swift in Sources */,
+				65D8211B39194DC7364533A4 /* DashboardViewModel.swift in Sources */,
+				1858FBBC4A412018364B9D9E /* FlightModels.swift in Sources */,
+				7E97757F3F661030A88A765E /* MainView.swift in Sources */,
+				90A82B299B5B47EA89AE3824 /* OnboardingView.swift in Sources */,
+				68805FB6ED1C21B6813F5A96 /* PersistenceService.swift in Sources */,
+				FC5CC696637FCD8ED3BB1BED /* SettingsView.swift in Sources */,
+				EB4CD94D0AE461652ACBA8F9 /* TrackedTrip.swift in Sources */,
+				9629FEB8207ABAB6E3B92638 /* TripCardView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0BE79BCEB59B501CFF0FD0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0002F59E27B2E731E2C39EBB /* ChatViewModelTests.swift in Sources */,
+				A0EDBCBA2358477FCAA7B416 /* MockAPIService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		543A6FB0A3B602B5B694ABBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 16A9B1EF6FB3E38D590D85FA /* Zenese */;
+			targetProxy = 66E8601BE9479F0A7FB67BE7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		05490D49E37F12D1DC38D3EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10.06.2025;
+				DEVELOPMENT_ASSET_PATHS = App/Assets.xcassets;
+				DEVELOPMENT_TEAM = 66YGHK7X2T;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Zenese;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.o;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weifengcao.Zenese;
+				PRODUCT_NAME = Zenese;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0B6208E5AAFE6DA0629D555E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 10.06.2025;
+				DEVELOPMENT_ASSET_PATHS = App/Assets.xcassets;
+				DEVELOPMENT_TEAM = 66YGHK7X2T;
+				INFOPLIST_FILE = App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Zenese;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.o;
+				PRODUCT_BUNDLE_IDENTIFIER = com.weifengcao.Zenese;
+				PRODUCT_NAME = Zenese;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		4D4D97931F03EE165DCC1AC0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		50CE581D5488205FCDC8ABDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		59487CDC5819947064C836F2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.weifengcao.ZeneseTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zenese.app/Zenese";
+			};
+			name = Debug;
+		};
+		BCAF638248C62DE2D67CDF7E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.weifengcao.ZeneseTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Zenese.app/Zenese";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		95D250C27532387BC97E84DA /* Build configuration list for PBXNativeTarget "Zenese" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				05490D49E37F12D1DC38D3EB /* Debug */,
+				0B6208E5AAFE6DA0629D555E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BA8177AEBE7A04A12EC5644C /* Build configuration list for PBXNativeTarget "ZeneseTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				59487CDC5819947064C836F2 /* Debug */,
+				BCAF638248C62DE2D67CDF7E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		EE3E6AB3243CB7D5C7062E23 /* Build configuration list for PBXProject "Zenese" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				50CE581D5488205FCDC8ABDC /* Debug */,
+				4D4D97931F03EE165DCC1AC0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E52CCA1CBDA0B1F4D5218E8A /* Project object */;
+}
