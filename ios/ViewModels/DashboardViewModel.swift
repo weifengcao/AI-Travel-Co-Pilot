@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/ViewModels/DashboardViewModel.swift
 // Description: The ViewModel for the DashboardView, managing the list of tracked trips.
 

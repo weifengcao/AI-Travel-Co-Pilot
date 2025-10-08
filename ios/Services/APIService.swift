@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/APIService.swift
 // Description: The service responsible for all networking calls to the backend API.
 

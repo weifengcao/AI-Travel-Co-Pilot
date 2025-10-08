@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Views/DashboardView.swift
 // Description: The main dashboard UI that displays a list of tracked flights.
 
@@ -30,7 +30,7 @@ struct DashboardView: View {
     
     private var headerView: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Your Co-Pilot")
+            Text("Zenese")
                 .font(.caption)
                 .foregroundColor(.secondary)
             Text("Tracked Flights")
@@ -65,7 +65,7 @@ struct DashboardView: View {
             Text("No Tracked Flights")
                 .font(.headline)
                 .padding(.top, 8)
-            Text("Ask your Co-Pilot to find a flight to get started.")
+            Text("Ask Zenese to find a flight to get started.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)

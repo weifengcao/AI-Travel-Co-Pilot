@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/APIServiceProtocol.swift
 // Description: Protocol defining the networking interface for API services.
 

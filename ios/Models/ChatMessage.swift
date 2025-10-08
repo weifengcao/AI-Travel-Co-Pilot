@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Models/ChatMessage.swift
 // Description: Represents a single message in the chat interface.
 

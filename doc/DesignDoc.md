@@ -1,7 +1,7 @@
-AI Travel Co-Pilot — Technical Design Document
+Zenese — Technical Design Document
 Version: 1.0
 Status: For Review
-Related PRD: AI Travel Co-Pilot PRD v1.0
+Related PRD: Zenese PRD v1.0
 
 1. System Architecture Overview
 The system is designed as a standard client-server architecture with a microservice-inspired backend to ensure scalability and maintainability. The core components are the iOS Client, a central AI Backend, a Smart API Router for external data, and a persistent database.

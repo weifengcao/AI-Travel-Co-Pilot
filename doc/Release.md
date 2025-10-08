@@ -1,5 +1,5 @@
-AI Travel Co-Pilot — iOS App Release Strategy
-Objective: To launch the AI Travel Co-Pilot MVP successfully on the Apple App Store, validate our core product hypothesis, and build a foundational user base for future growth.
+Zenese — iOS App Release Strategy
+Objective: To launch the Zenese MVP successfully on the Apple App Store, validate our core product hypothesis, and build a foundational user base for future growth.
 
 1. Phased Release Approach
 We will follow a structured, three-stage release to mitigate risk, gather feedback, and ensure a high-quality public launch.

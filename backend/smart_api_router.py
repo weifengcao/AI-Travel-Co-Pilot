@@ -1,4 +1,4 @@
-# AI Travel Co-Pilot
+# Zenese
 # File: backend/smart_api_router.py
 # Description: The core logic for the Smart API Router.
 
@@ -131,7 +131,7 @@ class SmartApiRouter:
 
 # --- Example of how to use the router ---
 if __name__ == "__main__":
-    print("--- AI Travel Co-Pilot: Smart API Router Test ---")
+    print("--- Zenese: Smart API Router Test ---")
     
     # Initialize the router with our configuration
     router = SmartApiRouter(API_PROVIDERS_CONFIG)

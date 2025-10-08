@@ -1,5 +1,5 @@
-AI Travel Co-Pilot — Production Readiness Checklist
-This document outlines the final infrastructure, configuration, and monitoring tasks required to launch the AI Travel Co-Pilot service to the public. All items must be completed and verified before submitting the iOS app to the App Store.
+Zenese — Production Readiness Checklist
+This document outlines the final infrastructure, configuration, and monitoring tasks required to launch the Zenese service to the public. All items must be completed and verified before submitting the iOS app to the App Store.
 
 Phase 1: Backend Infrastructure (Google Cloud Platform)
 [ ] Provision Production Database:

@@ -1,4 +1,4 @@
-AI Travel Co-Pilot — UI/UX Design Guide
+Zenese — UI/UX Design Guide
 Version: 1.0
 Goal: To create a beautiful, intuitive, and emotionally resonant user experience that feels more like a companion than a tool.
 
@@ -76,6 +76,6 @@ A small, subtle "tracking active" icon (e.g., the bell).
 3.4. Push Notification
 The notification is designed to be instantly informative and actionable.
 
-Title: AI Travel Co-Pilot
+Title: Zenese
 
 Body: Price Drop Alert! 📉 Flights to Santa Barbara are now $157 (down from $189).

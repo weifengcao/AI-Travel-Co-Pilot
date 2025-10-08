@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Views/ChatView.swift
 // Description: The main SwiftUI view for the chat interface.
 
@@ -12,7 +12,7 @@ struct ChatView: View {
     var body: some View {
         VStack(spacing: 0) {
             // Header
-            Text("AI Travel Co-Pilot")
+            Text("Zenese")
                 .font(.headline)
                 .padding()
                 .frame(maxWidth: .infinity)
@@ -48,14 +48,30 @@ struct ChatView: View {
 
             // Input Bar
             HStack(spacing: 12) {
-                TextField("Ask about a flight...", text: $viewModel.currentInput)
+                TextField(viewModel.isRecording ? "Listening..." : "Ask about a flight...", text: $viewModel.currentInput)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .disabled(viewModel.isRecording)
                 
-                Button(action: { viewModel.sendMessage() }) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .font(.title)
+                if viewModel.currentInput.isEmpty && !viewModel.isRecording {
+                    Button(action: { viewModel.toggleRecording() }) {
+                        Image(systemName: "mic.fill")
+                            .font(.title2)
+                    }
                 }
-                .disabled(viewModel.currentInput.isEmpty || viewModel.isTyping)
+                
+                if viewModel.isRecording {
+                    Button(action: { viewModel.toggleRecording() }) {
+                        Image(systemName: "stop.circle.fill")
+                            .font(.title)
+                            .foregroundColor(.red)
+                    }
+                } else if !viewModel.currentInput.isEmpty {
+                    Button(action: { viewModel.sendMessage() }) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .font(.title)
+                    }
+                    .disabled(viewModel.isTyping)
+                }
             }
             .padding()
             .background(Color(.systemGray6))
@@ -91,4 +107,3 @@ struct ChatView_Previews: PreviewProvider {
         ChatView()
     }
 }
-

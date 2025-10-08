@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Views/SettingsView.swift
 // Description: A view for user settings, including the sign-out button.
 

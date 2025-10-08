@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Services/AuthenticationService.swift
 // Description: Manages user authentication, including Google Sign-In and Biometrics.
 
@@ -56,7 +56,7 @@ class AuthenticationService: ObservableObject {
 
         // Check if the device is capable of biometric authentication.
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "Sign in to your AI Travel Co-Pilot account."
+            let reason = "Sign in to your Zenese account."
 
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [weak self] success, authenticationError in
                 DispatchQueue.main.async {

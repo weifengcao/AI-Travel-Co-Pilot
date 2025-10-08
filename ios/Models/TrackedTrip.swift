@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Models/TrackedTrip.swift
 // Description: Defines the data model for a flight the user is actively tracking.
 

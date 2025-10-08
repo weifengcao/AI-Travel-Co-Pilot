@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/AI_Travel_Co_PilotTests/ChatViewModelTests.swift
 // Description: Unit tests for the ChatViewModel to ensure parsing logic is correct.
 

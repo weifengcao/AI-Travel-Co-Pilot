@@ -1,4 +1,4 @@
-# AI Travel Co-Pilot
+# Zenese
 # File: backend/main.py
 # Description: The main FastAPI application to serve our Smart API Router.
 
@@ -35,7 +35,7 @@ class FlightSearchResponse(BaseModel):
 
 # Initialize the FastAPI application
 app = FastAPI(
-    title="AI Travel Co-Pilot API",
+    title="Zenese API",
     description="API for fetching flight data and managing user travel.",
     version="1.0.0"
 )
@@ -50,7 +50,7 @@ smart_router = SmartApiRouter(API_PROVIDERS_CONFIG)
 @app.get("/")
 def read_root():
     """A simple root endpoint to confirm the server is running."""
-    return {"status": "AI Travel Co-Pilot API is running!"}
+    return {"status": "Zenese API is running!"}
 
 
 @app.post("/search-flights", response_model=FlightSearchResponse)

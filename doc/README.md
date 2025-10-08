@@ -1,5 +1,4 @@
-AI Travel Co-Pilot
-Welcome to the AI Travel Co-Pilot project! This repository contains the source code for a conversational AI iOS application that helps users find, track, and manage their flights.
+ZeneseWelcome to the Zenese project! This repository contains the source code for a conversational AI iOS application that helps users find, track, and manage their flights.
 
 Project Overview
 The project is divided into two main components:
@@ -87,4 +86,4 @@ ios/
     │   └── Mocks/
     │       └── MockAPIService.swift
 
-This README provides a comprehensive guide to getting started with the AI Travel Co-Pilot project.
+This README provides a comprehensive guide to getting started with the Zenese project.

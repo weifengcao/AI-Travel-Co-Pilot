@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Views/TripCardView.swift
 // Description: A reusable SwiftUI view to display a single tracked flight on the dashboard.
 

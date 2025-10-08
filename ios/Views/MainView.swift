@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Views/MainView.swift
 // Description: The main root view of the application that handles authentication state.
 
@@ -16,7 +16,7 @@ struct MainView: View {
                 TabView {
                     NavigationView {
                         ChatView()
-                            .navigationTitle("Co-Pilot Chat")
+                            .navigationTitle("Zenese Chat")
                     }
                     .tabItem {
                         Label("Chat", systemImage: "message.fill")

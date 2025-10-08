@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/AI_Travel_Co_PilotTests/Mocks/MockAPIService.swift
 // Description: A mock version of the APIService for unit testing.
 
@@ -21,12 +21,3 @@ class MockAPIService: APIServiceProtocol {
         }.eraseToAnyPublisher()
     }
 }
-
-/// A protocol that our real APIService will also conform to.
-/// This is what enables dependency injection, allowing us to swap the real service with our mock one.
-protocol APIServiceProtocol {
-    func fetchFlightDetails(request: FlightSearchRequest) -> AnyPublisher<FlightDetails, APIError>
-}
-
-// We would also update the real `APIService` to conform to this protocol:
-// class APIService: APIServiceProtocol { ... }

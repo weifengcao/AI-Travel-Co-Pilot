@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Views/OnboardingView.swift
 // Description: The UI for the onboarding flow shown to first-time users.
 
@@ -14,7 +14,7 @@ struct OnboardingView: View {
             TabView {
                 OnboardingPageView(
                     imageName: "airplane.circle.fill",
-                    title: "Welcome to Co-Pilot",
+                    title: "Welcome to Zenese",
                     description: "Your personal AI assistant for smarter travel planning."
                 )
                 

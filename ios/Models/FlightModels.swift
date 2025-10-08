@@ -1,4 +1,4 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/Models/FlightModels.swift
 // Description: Data models for flight search requests and responses.
 

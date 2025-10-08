@@ -1,17 +1,20 @@
-// AI Travel Co-Pilot
+// Zenese
 // File: ios/ViewModels/ChatViewModel.swift
 // Description: The ViewModel for the ChatView, managing the conversation and API calls.
 
 import Foundation
-import NaturalLanguage
 import Combine
+import FoundationModels
+import Speech
 
+@available(iOS 18.0, *)
 class ChatViewModel: ObservableObject {
     
     // @Published properties will cause the UI to update when they change.
     @Published var messages: [ChatMessage] = []
     @Published var isTyping = false
     @Published var currentInput: String = ""
+    @Published var isRecording: Bool = false
     
     // Use the protocol for testability
     private var apiService: APIServiceProtocol
@@ -22,11 +25,51 @@ class ChatViewModel: ObservableObject {
     private var lastFoundFlightDetails: FlightDetails?
     private var lastParsedQuery: ParsedFlightQuery?
     
+    // The session for interacting with the on-device language model.
+    private var languageModelSession: LanguageModelSession
+    
+    // The helper for speech-to-text
+    private let speechRecognizer = SpeechRecognizer()
+    
     // Allow injecting a different service for testing
     init(apiService: APIServiceProtocol = APIService()) {
         self.apiService = apiService
+        
+        // Initialize the language model session with our custom flight search tool.
+        self.languageModelSession = LanguageModelSession(tools: [FlightSearchTool()])
+        
         // Initial welcome message from the AI.
-        messages.append(ChatMessage(text: "Hi! I'm your AI Travel Co-Pilot. Where would you like to go? (e.g., SFO to LAX Nov 17 to Nov 20)", isFromUser: false))
+        messages.append(ChatMessage(text: "Hi! I'm your Zenese. Where would you like to go? (e.g., SFO to LAX Nov 17 to Nov 20)", isFromUser: false))
+        
+        // Subscribe to speech recognizer updates
+        setupSpeechRecognizerSubscriptions()
+    }
+    
+    private func setupSpeechRecognizerSubscriptions() {
+        speechRecognizer.$isRecording
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$isRecording)
+        
+        speechRecognizer.$transcribedText
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$currentInput)
+        
+        speechRecognizer.finalTranscriptionPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] transcribedText in
+                self?.currentInput = transcribedText
+                self?.sendMessage()
+            }
+            .store(in: &cancellables)
+    }
+    
+    /// Starts or stops voice recording.
+    func toggleRecording() {
+        if isRecording {
+            speechRecognizer.stopRecording()
+        } else {
+            speechRecognizer.startRecording()
+        }
     }
     
     /// Main function to handle sending a message from the user.
@@ -41,7 +84,9 @@ class ChatViewModel: ObservableObject {
             handleTrackingConfirmation(for: currentInput)
         } else {
             // Otherwise, treat it as a new flight query.
-            fetchFlightData(for: currentInput)
+            Task {
+                await fetchFlightData(for: currentInput)
+            }
         }
         
         // Clear the input field.
@@ -56,7 +101,6 @@ class ChatViewModel: ObservableObject {
         if isAffirmative, let details = lastFoundFlightDetails, let query = lastParsedQuery {
             // 1. Create the TrackedTrip object.
             let initialPricePoint = PriceDataPoint(date: Date(), price: details.price)
-            // FIXED: Replaced placeholder with UUID()
             let newTrip = TrackedTrip(
                 id: UUID(),
                 origin: query.origin,
@@ -84,11 +128,10 @@ class ChatViewModel: ObservableObject {
     }
     
     /// Parses the user's message and fetches flight data from the backend.
-    func fetchFlightData(for message: String) {
+    func fetchFlightData(for message: String) async {
         isTyping = true
         
-        // FIXED: Corrected function name from xparse to parse.
-        guard let parsedQuery = parse(message: message) else {
+        guard let parsedQuery = await parse(message: message) else {
             messages.append(ChatMessage(text: "I'm sorry, I didn't understand the destination, origin, or dates. Could you try a format like 'SFO to LAX Nov 17 to Nov 20'?", isFromUser: false))
             isTyping = false
             return
@@ -97,16 +140,13 @@ class ChatViewModel: ObservableObject {
         // Store the query for later, in case the user wants to track it.
         self.lastParsedQuery = parsedQuery
         
-        // FIXED: Use a specific date formatter to match backend expectations.
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.string(from: parsedQuery.startDate)
         let endDateString = dateFormatter.string(from: parsedQuery.endDate)
         
-        // Create the request object for our API.
         let request = FlightSearchRequest(origin: parsedQuery.origin, destination: parsedQuery.destination, startDate: startDateString, endDate: endDateString)
         
-        // Make the API call.
         apiService.fetchFlightDetails(request: request)
             .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { [weak self] completion in
@@ -115,68 +155,42 @@ class ChatViewModel: ObservableObject {
                     self?.messages.append(ChatMessage(text: "Sorry, I couldn't fetch flight details right now. Error: \(error.localizedDescription)", isFromUser: false))
                 }
             }, receiveValue: { [weak self] flightDetails in
-                // Store flight details for potential tracking.
                 self?.lastFoundFlightDetails = flightDetails
-                
-                // Format the AI's response.
                 let responseText = "I found a flight for $ \(flightDetails.price). I can track the price for you and let you know if it drops. Should I add this to your dashboard?"
                 self?.messages.append(ChatMessage(text: responseText, isFromUser: false))
-                
-                // Set the flag to indicate we're waiting for a confirmation.
                 self?.isAwaitingTrackingConfirmation = true
             })
             .store(in: &cancellables)
     }
     
-    // MARK: - On-Device NLP Parsing
+    // MARK: - On-Device NLP Parsing with Foundation Models
     
-    /// Parses a user's text to extract flight query details using on-device frameworks.
-    func parse(message: String) -> ParsedFlightQuery? {
-        // ... NOTE: This uses Apple's on-device Natural Language frameworks.
-        
-        var origin: String?
-        var destination: String?
-        var dates: [Date] = []
-        
-        // 1. Use NLTagger for Entity Recognition (Airports)
-        let tagger = NLTagger(tagSchemes: [.nameType])
-        tagger.string = message
-        let options: NLTagger.Options = [.omitPunctuation, .omitWhitespace, .joinNames]
-        
-        tagger.enumerateTags(in: message.startIndex..<message.endIndex, unit: .word, scheme: .nameType, options: options) { tag, tokenRange in
-            if tag == .placeName {
-                let airportCode = String(message[tokenRange]).uppercased()
-                if origin == nil {
-                    origin = airportCode
-                } else if destination == nil {
-                    destination = airportCode
-                }
-            }
-            return true
-        }
-        
-        // 2. Use NSDataDetector for finding dates
+    /// Parses a user's text to extract flight query details using the on-device language model.
+    func parse(message: String) async -> ParsedFlightQuery? {
         do {
-            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.date.rawValue)
-            let matches = detector.matches(in: message, options: [], range: NSRange(location: 0, length: message.utf16.count))
+            let response = try await languageModelSession.generate(with: message)
             
-            for match in matches {
-                if let date = match.date {
-                    dates.append(date)
+            // Check if the model decided to use our custom tool.
+            if let toolCall = response.toolCalls.first(where: { $0.tool.name == "find_flights" }) {
+                // The model returned a tool call, now we need to decode the arguments.
+                let flightSearchTool = FlightSearchTool()
+                let parsedArgs = try await flightSearchTool.decode(from: toolCall.arguments)
+                
+                // Convert the string dates to Date objects.
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                guard let startDate = dateFormatter.date(from: parsedArgs.startDate),
+                      let endDate = dateFormatter.date(from: parsedArgs.endDate) else {
+                    return nil
                 }
+                
+                return ParsedFlightQuery(origin: parsedArgs.origin, destination: parsedArgs.destination, startDate: startDate, endDate: endDate)
             }
         } catch {
-            print("Error creating date detector: \(error)")
+            print("Error processing message with Foundation Model: \(error)")
         }
         
-        // 3. Validate and return the final query object
-        guard let originUnwrapped = origin, let destinationUnwrapped = destination, dates.count >= 2 else {
-            return nil
-        }
-        
-        let sortedDates = dates.sorted()
-        
-        return ParsedFlightQuery(origin: originUnwrapped, destination: destinationUnwrapped, startDate: sortedDates[0], endDate: sortedDates[1])
+        return nil
     }
     
     struct ParsedFlightQuery {
@@ -185,4 +199,32 @@ class ChatViewModel: ObservableObject {
         let startDate: Date
         let endDate: Date
     }
+}
+
+// MARK: - Foundation Models Tool Definition
+
+/// A tool that the on-device language model can use to understand flight search queries.
+struct FlightSearchTool: Tool {
+    /// The name of the tool, which the model uses to identify it.
+    let name = "find_flights"
+    
+    /// A description that helps the model understand what this tool does.
+    let description = "Finds flights between two locations on specified dates."
+    
+    /// The arguments the tool takes, defined in a separate struct.
+    typealias Arguments = FlightSearchArguments
+    
+    /// The business logic of the tool. In our case, we just want the parsed data.
+    func run(with arguments: FlightSearchArguments) async throws -> String {
+        // We don't need to do anything here since we are just using the tool to structure the data.
+        return "Successfully parsed flight query."
+    }
+}
+
+/// The arguments for the `FlightSearchTool`.
+struct FlightSearchArguments: Codable, Sendable {
+    var origin: String
+    var destination: String
+    var startDate: String
+    var endDate: String
 }

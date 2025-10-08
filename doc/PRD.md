@@ -1,11 +1,11 @@
-AI Travel Co-Pilot — Product Requirements Document (PRD)
+Zenese — Product Requirements Document (PRD)
 Version: 1.0
 Date: October 7, 2025
 Author: Product Team
 Status: Finalized for MVP Development
 
 1. Executive Summary
-The AI Travel Co-Pilot is a conversational, AI-first mobile application designed to eliminate the friction and anxiety of travel planning. It begins by solving a single, high-value problem: tracking flight prices through a simple, voice-first interface. Over time, it will evolve into an indispensable companion that manages travel expenses, captures memories, and provides proactive assistance, creating a deeply personal and valuable travel history for the user.
+The Zenese is a conversational, AI-first mobile application designed to eliminate the friction and anxiety of travel planning. It begins by solving a single, high-value problem: tracking flight prices through a simple, voice-first interface. Over time, it will evolve into an indispensable companion that manages travel expenses, captures memories, and provides proactive assistance, creating a deeply personal and valuable travel history for the user.
 
 2. The Problem
 Modern travelers face a paradox of choice and complexity. They must navigate dozens of websites, manage complex spreadsheets for budgeting, and manually track flight prices, often missing the best deals. The process is fragmented, time-consuming, and stressful. Existing tools are largely form-based, requiring users to adapt to the software, rather than the software adapting to them.

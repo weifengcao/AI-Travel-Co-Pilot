@@ -1,4 +1,4 @@
-# This file lists the Python packages required to run the AI Travel Co-Pilot backend.
+# This file lists the Python packages required to run the Zenese backend.
 # Install these dependencies using the command: pip install -r requirements.txt
 fastapi
 uvicorn[standard]
