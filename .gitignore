@@ -38,3 +38,5 @@ MANIFEST
 .env
 .env.*
 secrets.yml
+
+ios/.DS_Store
